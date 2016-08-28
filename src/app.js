@@ -1,11 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
-const App = React.createClass({
-	render : function() {
-		return (<div>Test test test</div>);
-	}
-});
+import 'font-awesome/css/font-awesome.css';
+import './app.css';
+import App from 'containers/App/App';
 
 const mountNode = document.querySelector('#root');
 ReactDOM.render(<App />, mountNode);
