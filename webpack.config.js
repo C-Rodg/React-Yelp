@@ -35,13 +35,14 @@ const defines = Object.keys(envVariables)
 
 
 var config = getConfig({
-	isDev,
+	isDev : isDev || isTest,
 	in: join(src, 'app.js'),
 	out: dest,
 	clearBeforeBuild : true
 });
 if(isTest) {
 	config.externals = {
+		'react/addons': true,
 		'react/lib/ReactContext' : true,
 		'react/lib/ExecutionEnvironment' : true
 	};
@@ -71,16 +72,12 @@ config.resolve.alias = {
 	'css' : join(src, 'styles'),
 	'containers': join(src, 'containers'),
 	'components' : join(src, 'components'),
-	'utils' : join(src, 'utils')
+	'utils' : join(src, 'utils'),
+	'styles': join(src, 'styles')
 };
 
 const matchCssLoaders = /(^|!)(css-loader)($|!)/;
 
-// const findLoader = (loaders, match) => {
-// 	const found = loaders.filter(l => l &&
-// 		l.loader && l.loader.match(match));
-// 	return found ? found[0] : null;
-// };
 const findLoader = (loaders, match) => {
   const found = loaders.filter(l => l && l.loader && l.loader.match(match))
   return found ? found[0] : null;
@@ -91,9 +88,7 @@ const cssModulesNames = `${isDev ? '<div path="" name="" local=""></div>__' : ''
 const newloader = Object.assign({}, cssloader, {
 	test: /\.module\.css$/,
 	include: [src],
-	loader: cssloader.loader
-		.replace(matchCssLoaders,
-			`$1$2?modules&localIdentName=${cssModulesNames}$3`)
+	loader: cssloader.loader.replace(matchCssLoaders, `$1$2?modules&localIdentName=${cssModulesNames}$3`)
 });
 config.module.loaders.push(newloader);
 cssloader.test = new RegExp(`[^module]${cssloader.test.source}`);

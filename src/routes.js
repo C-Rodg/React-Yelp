@@ -13,4 +13,4 @@ export const makeRoutes = () => {
 	)
 }
 
-export default makeRoutes;
+export default makeRoutes
