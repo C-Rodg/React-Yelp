@@ -15,7 +15,8 @@
 	text-decoration: none;
 	cursor: pointer;
 
-	h1 {
+	h2 {
+		margin:5px 0;
 		flex: 2;
 		&:hover {
 			color: var(--highlight);

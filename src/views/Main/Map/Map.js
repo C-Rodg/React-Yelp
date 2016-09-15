@@ -34,14 +34,18 @@ export class MapComponent extends React.Component {
 		});
 	}
 	render() {
+		let where = {
+			lat: 47.615796,
+			lng: -122.3198484
+		};
 		const {children} = this.props;
-		
 		return (
 			<Map 
 				map={this.props.map}
 				google={this.props.google}
 				className={styles.map}
 				zoom={this.props.zoom}
+				center={where}
 				onRecenter={this.props.onMove}
 				onDragend={this.props.onMove}
 				onClick={this.props.onClick}

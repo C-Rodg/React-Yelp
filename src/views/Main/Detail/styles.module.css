@@ -1,4 +1,6 @@
 @import url("../../../styles/base.css");
+@import url("../../../styles/colors.css");
+
 .header {
 	padding: 0 var(--padding);
 	h2 {font-size: 1.5em;}
@@ -15,10 +17,57 @@
 
 	img {
 		margin: 0 1px;
+		border-radius: 2px;
+		border: 1px solid #c5c5c5;
 	}
 
 	::-webkit-scrollbar {
 		width: 0;
 		background: transparent;
+	}
+}
+
+.reviews {
+	padding: 0 var(--padding);
+	h4 {
+		margin:20px 0 0 0;
+	}
+	.reviewBox {
+		padding: 10px 0;
+		border-bottom: 1px solid var(--light-gray);
+		
+		.reviewRate {
+			font-weight: bold;
+		}
+		
+		p {
+			padding: 0;
+			margin: 10px;
+		}
+	}
+}
+
+
+
+.price {
+	padding: 0 var(--padding);
+}
+
+.hours {
+	padding: 0 var(--padding);
+
+	h4 {
+		margin-bottom: 0;
+	}
+
+	p {
+		font-style: italic;
+		margin: 5px 0;
+	}
+
+	ul {
+		list-style-type: none;
+		padding:0;
+		margin: 0;
 	}
 }

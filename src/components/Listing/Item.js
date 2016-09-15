@@ -21,7 +21,7 @@ export class Item extends React.Component {
 		const {place} = this.props;
 		return (
 			<div onClick={this.onClick.bind(this)} className={classnames(styles.item, {[styles.itemHovered]: this.state.hovered})}>
-				<h1 className={classnames(styles.title)}>{place.name}</h1>
+				<h2 className={classnames(styles.title)}>{place.name}</h2>
 				<Rating className={styles.rating} percentage={(place.rating/5)} />
 			</div>
 		)

@@ -16,9 +16,10 @@ export class Container extends React.Component {
 		};
 	}
 	onReady(mapProps, map) {
-		searchNearby(this.props.google, map,
+		searchNearby(this.props.google, 
+			map,
 			{
-				location: map.center,
+				location: {lat: 47.615796, lng: -122.3198484},//map.center,
 				radius: '500',
 				types: ['cafe']
 			}
@@ -64,7 +65,7 @@ export class Container extends React.Component {
 					className={styles.wrapper}>
 					<Header />
 					<Sidebar 
-						title={'Restaurants'}
+						title={'Find the Worst of the Worst'}
 						onListItemClick={this.onMarkerClick.bind(this)}
 						places={this.state.places} />
 					<div className={styles.content}>

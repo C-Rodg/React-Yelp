@@ -31,18 +31,18 @@ export class Detail extends React.Component {
 		}
 	}
 
-	getDetials(map) {
+	getDetails(map) {
 		const {google, params} = this.props;
 		const {placeId} = params;
 
 		this.setState({loading: true}, () => {
 			getDetails(google, map, placeId)
-			.then(place => {
+			.then((place) => {
 				const {location} = place.geometry;
 				const loc = {
 					lat: location.lat(),
 					lng: location.lng()
-				}
+				};
 
 				this.setState({
 					place, 
@@ -53,15 +53,42 @@ export class Detail extends React.Component {
 		});
 	}
 
+	renderOpen(place) {
+		if(place.opening_hours.open_now) {
+			return (<span className={styles.open}>Open!  : )</span>)
+		} else {
+			return (<span className={styles.closed}>Closed : (</span>)
+		}
+	}
+
+	renderReviews(reviews) {
+		if (!reviews || reviews.length == 0) {
+			return ("<p>No reviews yet..</p>");
+		}
+		return (
+			<div>{	
+				reviews.map(r => {
+					return (
+						<div className={styles.reviewBox}>
+							<p className={styles.reviewRate}>{r.rating}.0 Rating</p>
+							<p>{r.text}</p>
+							<p>-{r.author_name}</p>
+						</div>
+					)
+				})
+			}</div>
+		)
+	}
+
 	renderPhotos(place) {
 		if(!place.photos || place.photos.length == 0) {
-			return;
+			return ("<p>No photos..</p>");
 		}
 		const cfg = {maxWidth: 100, maxHeight: 100};
 		return (
 			<div className={styles.photoStrip}>
 				{place.photos.map(p => {
-					const url = `${p.getUrl(cfg)}.png`
+					const url = `${p.getUrl(cfg)}.png`;
 					return (<img key={url} src={url} />)
 				})}
 			</div>
@@ -81,9 +108,34 @@ export class Detail extends React.Component {
 			<div className={styles.wrapper}>
 				<div className={styles.header}>
 					<h2>{place.name}</h2>
+					<h4>{place.formatted_address} | <a href="#">{place.formatted_phone_number}</a></h4>
 				</div>
 				<div className={styles.details}>
 					{this.renderPhotos(place)}
+				</div>
+				<div className={styles.price}>
+					<h4>Price: {function(place){
+						let str = "";
+						for(let i = 0; i < place.price_level; i++){
+							str += "$ ";
+						}
+						return str;
+					}(place)}</h4>
+				</div>
+				<div className={styles.hours}>
+					<h4>Hours:</h4>
+					<p>We're... {this.renderOpen(place)}</p>
+					<ul>
+					{place.opening_hours.weekday_text.map(p => {
+						return (
+							<li>{p}</li>
+						)
+					})}
+					</ul>
+				</div>
+				<div className={styles.reviews}>
+					<h4>Reviews:</h4>
+					{this.renderReviews(place.reviews)}
 				</div>
 			</div>
 		)

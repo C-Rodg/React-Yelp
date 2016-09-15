@@ -30,6 +30,6 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
-	title: 'Restaurants'
+	title: 'Find The Worst of The Worst'
 };
 export default Sidebar;
